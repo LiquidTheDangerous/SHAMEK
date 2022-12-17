@@ -10,4 +10,5 @@ public class ShamekApplication {
         SpringApplication.run(ShamekApplication.class, args);
     }
 
+
 }
