@@ -30,6 +30,7 @@ public class MessageController {
     @PostMapping("/create")
     public String saveMessage(@ModelAttribute Message message, @RequestParam String tags) {
         message.setTag(parseTags(tags));
+
         messageRepo.save(message);
         return "redirect:/";
     }

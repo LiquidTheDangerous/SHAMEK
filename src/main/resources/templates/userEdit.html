@@ -14,13 +14,13 @@
                 <input type="text" name="username" th:value="${UserEdit.get().getUsername()}" id="UserNameField">
             </div>
             <div th:each="role : ${roles}" style="color:whitesmoke;">
-                <label><input type="checkbox" th:text="${role}" th:name="${role}" th:checked="${UserEdit.get().getRoles().contains(role)}"></label>
+                <input type="checkbox" th:text="${role}" th:name="${role}" th:checked="${UserEdit.get().getRoles().contains(role)}">
             </div>
             <br>
             <br>
-            <div class="user-box">
+
                 <input type="hidden" id="user_id" th:value="${UserEdit.get().getId()}" name="userId">
-            </div>
+
             <button class="glow-on-hover" type="submit">Save</button>
         </form>
     </div>
