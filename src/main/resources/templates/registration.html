@@ -2,15 +2,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/login_register.css}">
+    <title>Registration</title>
 </head>
 <body>
-<div th:if="${message}" th:text="${message}"/>
-  <form th:action="@{/registration}" method="post">
-    <div><label> Username : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="create user"/></div>
-  </form>
-<a href="/login">Login</a>
+    <div class="login-box">
+        <h2>Registration</h2>
+        <form th:action="@{/registration}" method="post">
+            <div class="user-box">
+                <input type="text" name="username" required="">
+                <label>Username</label>
+            </div>
+            <div class="user-box">
+                <input type="password" name="password" required="">
+                <label>Password</label>
+            </div>
+            <button type="submit">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Create user
+            </button>
+            <br>
+            <a href="/login">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Login
+            </a>
+            <br><br>
+            <center>
+              <hr th:if="${message}">
+               <div th:if="${message}" th:text="${message}" style="color:aliceblue; font-size: 25px;">  
+                </div>
+            </center>
+        </form>
+    </div>
 </body>
 </html>
