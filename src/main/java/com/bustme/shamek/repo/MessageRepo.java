@@ -7,4 +7,5 @@ import java.util.Set;
 
 public interface MessageRepo extends JpaRepository<Message,Long> {
     Set<Message> findMessagesByTag(String tag);
+    Message findMessageById(Integer id);
 }
