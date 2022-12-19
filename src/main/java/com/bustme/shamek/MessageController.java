@@ -41,6 +41,7 @@ public class MessageController {
     }
 
 
+
     @GetMapping("/create")
     public String getMessageForm(Model model) {
         model.addAttribute("message", new Message());

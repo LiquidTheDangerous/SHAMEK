@@ -10,7 +10,7 @@
     <input type="submit" value="Sign Out"/>
 </form>
 
-<form th:action="@{/edit}" method="get">
+<form th:action="@{/message/create}" method="get">
     <input type="submit" value="Write message"/>
 </form>
 
@@ -19,7 +19,6 @@
     <div th:text="${userName}"></div>
     <div th:text="${message.getTitle()}"></div>
     <div th:text="${message.getText()}"></div>
-    <form th:if="${roles.contains(adminRole)}" th:action=""
     <br>
 </div>
 <!--<div th:each="m"-->
