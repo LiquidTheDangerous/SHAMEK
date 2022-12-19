@@ -15,6 +15,10 @@ public class User {
     private String password;
     private boolean active;
 
+
+    /*
+    * К таблице usr будет присоединятся таблица user_role по usr.id = user_role.user_id
+    * */
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
