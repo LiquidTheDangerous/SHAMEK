@@ -5,7 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/message/edit}" th:object="${message}">
+<form th:method="POST" th:action="@{/message/edit/{messageId}(messageId = ${message.getId()})}" th:object="${message}">
+
     <div><label>Title: <input type="text" th:field="*{title}"></label></div>
     <div><label>Tag: <input type="text" th:name="tags" th:value="${tags}"></label></div>
     <div><label>Text: <input type="text"  th:field="*{text}"></label></div>

@@ -5,7 +5,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="msg")
-public class Message {
+public class Message implements Cloneable{
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

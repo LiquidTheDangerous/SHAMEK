@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
@@ -27,7 +28,7 @@ public class MessageController {
     }
 
     @PostMapping("/create")
-    public String saveMessage(Message message, @RequestParam String tags) {
+    public String saveMessage(@ModelAttribute Message message, @RequestParam String tags) {
         message.setTag(parseTags(tags));
         messageRepo.save(message);
         return "redirect:/";
@@ -43,10 +44,16 @@ public class MessageController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/edit")
-    public String saveEditedMessage(Message message, @RequestParam String tags) {
+    @PostMapping("/edit/{messageId}")
+    public String saveEditedMessage(@ModelAttribute Message  message, @RequestParam String tags, @PathVariable Integer messageId) {
         message.setTag(parseTags(tags));
-        messageRepo.save(message);
+        Message editedMessage = messageRepo.findMessageById(messageId);
+        if (editedMessage != null) {
+            editedMessage.setTag(message.getTag());
+            editedMessage.setTitle(message.getTitle());
+            editedMessage.setText(message.getText());
+            messageRepo.save(editedMessage);
+        }
         return "redirect:/";
     }
 
