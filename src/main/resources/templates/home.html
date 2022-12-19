@@ -10,6 +10,10 @@
     <input type="submit" value="Sign Out"/>
 </form>
 
+<form th:action="@{/edit}" method="get">
+    <input type="submit" value="Write message"/>
+</form>
+
 <div>Our band posts:</div>
 <div th:each="message : ${messages}">
 
