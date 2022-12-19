@@ -1,14 +1,23 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <title>Getting Started: Handling Form Submission</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
-<body>
-<h1>Hello</h1>
+
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
 </form>
+
+<div>Our band posts:</div>
+<div th:each="message : ${messages}">
+
+    <div th:text="${message.getTitle()}"></div>
+    <div th:text="${message.getText()}"></div>
+
+</div>
+<!--<div th:each="m"-->
+
 </body>
 </html>
