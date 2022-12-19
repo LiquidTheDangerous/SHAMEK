@@ -14,7 +14,6 @@ import java.util.TreeSet;
 
 @Controller
 @RequestMapping("/message")
-@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
 public class MessageController {
     @Autowired
     MessageRepo messageRepo;
@@ -34,12 +33,22 @@ public class MessageController {
         return "redirect:/";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/edit/{messageId}")
     public String getMessageEditForm(Model model, @PathVariable Integer messageId) {
-        model.addAttribute("message", messageRepo.findMessageById(messageId));
+        Message message = messageRepo.findMessageById(messageId);
+        model.addAttribute("message", message);
+        model.addAttribute("tags", message.getTags());
         return "editMessage";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/edit")
+    public String saveEditedMessage(Message message, @RequestParam String tags) {
+        message.setTag(parseTags(tags));
+        messageRepo.save(message);
+        return "redirect:/";
+    }
 
 
     @GetMapping("/create")

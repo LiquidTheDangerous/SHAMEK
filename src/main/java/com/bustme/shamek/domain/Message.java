@@ -52,4 +52,12 @@ public class Message {
         this.tag = tag;
     }
 
+    public String getTags() {
+        StringBuilder result = new StringBuilder();
+        for(String t: tag) {
+            result.append("#");
+            result.append(t);
+        }
+        return result.toString();
+    }
 }
