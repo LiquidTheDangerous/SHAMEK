@@ -2,19 +2,45 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
     <head>
         <title>Spring Security Example </title>
+        <link rel="stylesheet" th:href="@{/css/login_register.css}">
     </head>
     <body>
-        <div th:if="${param.error}">
-            Invalid username and password.
+        <div class="login-box">
+          <h2>Login</h2>
+          <form th:action="@{/login}" method="post">
+            <div class="user-box">
+              <input type="text" name="username" required="">
+              <label>Username</label>
+            </div>
+            <div class="user-box">
+              <input type="password" name="password" required="">
+              <label>Password</label>
+            </div>
+            <button type="submit">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Sumbit
+            </button>
+            <br>
+             <a href="/registration">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Register
+            </a>
+          </form>
+           <br><br>
+           <hr th:if="${param.error}">
+            <div th:if="${param.error}" style="color:aliceblue; font-size: 25px;">
+                Invalid username and password.
+            </div>
+            <hr th:if="${param.logout}">
+            <div th:if="${param.logout}" style="color:aliceblue; font-size: 25px;">
+                You have been logged out.
+            </div>
         </div>
-        <div th:if="${param.logout}">
-            You have been logged out.
-        </div>
-        <form th:action="@{/login}" method="post">
-            <div><label> User Name : <input type="text" name="username"/> </label></div>
-            <div><label> Password: <input type="password" name="password"/> </label></div>
-            <div><input type="submit" value="Sign In"/></div>
-        </form>
-        <a href="/registration">Register</a>
     </body>
 </html>
