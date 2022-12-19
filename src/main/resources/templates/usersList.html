@@ -2,30 +2,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/user_edit_bg.css}">
+    <link rel="stylesheet" th:href="@{/css/button_user_edit_anim.css}">
+    <title>Users List</title>
 </head>
 <body>
-<table>
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Role</th>
-    </tr>
-    </thead>
-    <tbody>
-
-    <tr th:each="user : ${users}">
-
-        <td th:text="${user.getUsername()}"></td>
-        <td th:each="role : ${user.getRoles()}">
-            <div th:text="${role}"></div>
-        </td>
-        <td><a th:href="@{users/{id}(id=${user.getId()})}">edit</a></td>
-
-    </tr>
-
-    </tbody>
-
-</table>
+    <div class="table-wrapper">
+        <table class="fl-table" style="border-color: black; border-style: solid;">
+            <thead>
+                <tr style="border-color: black; border-style: solid;">
+                    <th style="border-color: black; border-style: solid;">Name</th>
+                    <th style="border-color: black; border-style: solid;">Role</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${users}" >
+                    <td th:text="${user.getUsername()}" style="font-size: 25px; border-color: black; border-style: solid;">
+                        
+                    </td>
+                    <td th:each="role : ${user.getRoles()}" style="font-size: 25px; border-color: black; border-style: solid;">
+                        <div th:text="${role}"></div>
+                        
+                    </td>
+                    <td style="border-color: black; border-style: solid;">
+                        <button class="glow-on-hover" style="font-size: 15px; width: 75px;">
+                            <a th:href="@{users/{id}(id=${user.getId()})}">
+                                edit
+                            </a>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

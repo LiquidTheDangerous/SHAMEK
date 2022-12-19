@@ -2,14 +2,32 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/login_register.css}">
     <title>Edit message</title>
 </head>
 <body>
-<form th:action="@{/message/create}" th:object="${message}" th:method="POST">
-    <div><label>Title: <input type="text" th:field="*{title}"></label></div>
-    <div><label>Tag: <input type="text" name="tags" ></label></div>
-    <div><label>Text: <input type="text" th:field="*{text}"></label></div>
-    <div><input type="submit" value="create message"></div>
-</form>
+    <div class="login-box">
+        <form th:action="@{/message/create}" th:object="${message}" th:method="POST">
+            <div class="user-box">
+                <input type="text" th:field="*{title}">
+                <label>Title</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="tags" >
+                <label>Tag</label>
+            </div>
+            <div class="user-box">
+                <input type="text" th:field="*{text}">
+                <label>Text</label>
+            </div>
+            <button type="submit">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                create message
+            </button>
+        </form>
+    </div>
 </body>
 </html>
