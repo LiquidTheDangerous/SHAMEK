@@ -10,8 +10,8 @@
     <div class="login-box">
         <form th:action="@{/users}" method="post">
             <div class="user-box">
-                <label for="UserNameField">Username</label>
-                <input type="text" name="username" th:value="${UserEdit.get().getUsername()}" id="UserNameField">
+                <label for="UserNameField"></label>
+                <input placeholder="Username" type="text" name="username" th:value="${UserEdit.get().getUsername()}" id="UserNameField">
             </div>
             <div th:each="role : ${roles}" style="color:whitesmoke;">
                 <label><input type="checkbox" th:text="${role}" th:name="${role}" th:checked="${UserEdit.get().getRoles().contains(role)}"></label>
