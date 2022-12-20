@@ -61,7 +61,7 @@
                 <br>
                 <div th:text="${message.getText()}" class="message_text" style="text-align: left;"></div>
                 <br>
-                <form th:if="${CurrentUserRoles.contains(AdminRole) || message.isAuthor(CurrentUser)}" th:action="@{message/edit/{messageId}(messageId=${message.getId()})}" method="get">
+                <form th:if="${CurrentUserRoles.contains(AdminRole) || message.isAuthor(CurrentUser)}" th:action="@{edit/{messageId}(messageId=${message.getId()})}" method="get">
                     <button type="submit">
                         <span></span>
                         <span></span>
@@ -70,7 +70,7 @@
                         Edit
                     </button>
                 </form>
-                <form th:if="${CurrentUserRoles.contains(AdminRole) || message.isAuthor(CurrentUser)}" th:action="@{message/delete/{messageId}(messageId=${message.getId()})}" method="post">
+                <form th:if="${CurrentUserRoles.contains(AdminRole) || message.isAuthor(CurrentUser)}" th:action="@{delete/{messageId}(messageId=${message.getId()})}" method="post">
                     <button type="submit">
                         <span></span>
                         <span></span>
