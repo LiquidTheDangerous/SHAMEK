@@ -90,32 +90,35 @@ body {
     width: 100%;
     max-width: 100%;
     white-space: nowrap;
-    background-color: white;
+    background: rgba(0,0,0,.5);
 }
 
 .fl-table td, .fl-table th {
     text-align: center;
     padding: 8px;
+    border: 2px solid black;
 }
 
 .fl-table td {
     border-right: 1px solid #f8f8f8;
     font-size: 12px;
+    border: 2px solid black;
 }
 
 .fl-table thead th {
     color: black;
-    background-color: cyan;
+    background-color: transparent;
+    border: 2px solid black;
 }
 
 
 .fl-table thead th:nth-child(odd) {
     color: black;
-    background-color: cornflowerblue;
+    background-color: transparent;
 }
 
 .fl-table tr:nth-child(even) {
-    background-color: cadetblue;
+    background-color: transparent;
 }
 
 /* Responsive */
@@ -124,6 +127,7 @@ body {
     .fl-table {
         display: block;
         width: 100%;
+        color: aliceblue;
     }
     .table-wrapper:before{
         content: "Scroll horizontally >";
@@ -135,6 +139,7 @@ body {
     }
     .fl-table thead, .fl-table tbody, .fl-table thead th {
         display: block;
+        background: rgba(0,0,0,.5);
     }
     .fl-table thead th:last-child{
         border-bottom: none;
@@ -160,26 +165,28 @@ body {
     }
     .fl-table thead th {
         text-align: left;
-        border-bottom: 1px solid #f7f7f9;
+        border: 2px solid black;
     }
     .fl-table tbody tr {
         display: table-cell;
+        border: 2px solid black;
     }
     .fl-table tbody tr:nth-child(odd) {
-        background: none;
+        background: rgba(0,0,0,.5);
     }
     .fl-table tr:nth-child(even) {
-        background: transparent;
+        background: rgba(0,0,0,.5);
     }
     .fl-table tr td:nth-child(odd) {
-        background: #F8F8F8;
-        border-right: 1px solid #E6E4E4;
+        background: rgba(0,0,0,.5);
+        border: 2px solid black;
     }
     .fl-table tr td:nth-child(even) {
-        border-right: 1px solid #E6E4E4;
+        border: 2px solid black;
     }
     .fl-table tbody td {
         display: block;
         text-align: center;
+        border: 2px solid black;
     }
 }

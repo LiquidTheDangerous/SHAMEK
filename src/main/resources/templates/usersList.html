@@ -2,30 +2,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/css/user_edit_bg.css}">
-    <link rel="stylesheet" th:href="@{/css/button_user_edit_anim.css}">
+    <link rel="stylesheet" href="../static/css/user_edit_bg.css">
+    <link rel="stylesheet" href="../static/css/button_user_edit_anim.css">
     <title>Users List</title>
 </head>
 <body>
     <div class="table-wrapper">
         <table class="fl-table" style="border-color: black; border-style: solid;">
-            <thead>
-                <tr style="border-color: black; border-style: solid;">
-                    <th style="border-color: black; border-style: solid;">Name</th>
-                    <th style="border-color: black; border-style: solid;">Role</th>
+            <thead style="font-size: 16px;">
+                <tr>
+                    <th>Name</th>
+                    <th>Role</th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody style="font-size: 16px;">
                 <tr th:each="user : ${users}" >
-                    <td th:text="${user.getUsername()}" style="font-size: 25px; border-color: black; border-style: solid;">
+                    <td th:text="${user.getUsername()}" style="font-size: 25px;">
                         
                     </td>
-                    <td th:each="role : ${user.getRoles()}" style="font-size: 25px; border-color: black; border-style: solid;">
+                    <td th:each="role : ${user.getRoles()}" style="font-size: 25px;">
                         <div th:text="${role}"></div>
                         
                     </td>
-                    <td style="border-color: black; border-style: solid;">
+                    <td>
                         <button class="glow-on-hover" style="font-size: 15px; width: 75px;">
                             <a th:href="@{users/{id}(id=${user.getId()})}">
                                 edit

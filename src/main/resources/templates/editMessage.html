@@ -2,15 +2,34 @@
 <html lang="en"  xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/login_register.css}">
+    <title>Change message</title>
 </head>
-<body>
-<form th:method="POST" th:action="@{/message/edit/{messageId}(messageId = ${message.getId()})}" th:object="${message}">
 
-    <div><label>Title: <input type="text" th:field="*{title}"></label></div>
-    <div><label>Tag: <input type="text" th:name="tags" th:value="${tags}"></label></div>
-    <div><label>Text: <input type="text"  th:field="*{text}"></label></div>
-    <div><input type="submit" value="save message"></div>
-</form>
+<body>
+    <div class="login-box">
+        <form th:method="POST" th:action="@{/message/edit/{messageId}(messageId = ${message.getId()})}" th:object="${message}">
+            <div class="user-box">
+                <input placeholder="Input title" type="text" th:field="*{title}">
+                <label>Title</label>
+            </div>
+            <div class="user-box">
+                <input placeholder="#tag" type="text" name="tags" th:value="${tags}">
+                <label>Tag</label>
+            </div>
+            <div class="user-box">
+                <label style="color: #03e9f4; font-size: 12px;">Text</label>
+                <br><br>
+                <textarea placeholder="Input text" type="text" th:field="*{text}" rows="10" cols="30" style="overflow-y: hidden; width: 400px; height: auto; resize: none; background-color: transparent; font-size: 15px; color: #fff; border: none;"></textarea>
+            </div>
+            <button type="submit">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                save message
+            </button>
+        </form>
+    </div>
 </body>
 </html>

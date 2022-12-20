@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/login_register.css}">
-    <title>Edit message</title>
+    <title>Create message</title>
 </head>
 <body>
     <div class="login-box">
         <form th:action="@{/message/create}" th:object="${message}" th:method="POST">
             <div class="user-box">
-                <input type="text" th:field="*{title}">
+                <input placeholder="Input title" type="text" th:field="*{title}">
                 <label>Title</label>
             </div>
             <div class="user-box">
-                <input type="text" name="tags" >
+                <input placeholder="#tag" type="text" name="tags" >
                 <label>Tag</label>
             </div>
             <div class="user-box">
-                <input type="text" th:field="*{text}">
-                <label>Text</label>
+                <label style="color: #03e9f4; font-size: 12px;">Text</label>
+                <br><br>
+                <textarea placeholder="Input text" type="text" th:field="*{text}" rows="10" cols="30" style="overflow-y: hidden; width: 400px; height: auto; resize: none; background-color: transparent; font-size: 15px; color: #fff; border: none;"></textarea>
             </div>
             <button type="submit">
                 <span></span>
