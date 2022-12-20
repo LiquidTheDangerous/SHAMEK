@@ -20,6 +20,17 @@ public class Message implements Cloneable{
     @CollectionTable(name = "message_tags", joinColumns = @JoinColumn(name = "message_id"))
     private Set<String> tag;
 
+    @ManyToOne
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Integer getId() {
         return id;
     }

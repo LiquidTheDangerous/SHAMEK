@@ -29,12 +29,7 @@ public class HomeController {
 
     @GetMapping()
     public String home(Model model) {
-        model.addAttribute("messages", messageRepo.findAll());
-        model.addAttribute("userName",
-                SecurityContextHolder
-                        .getContext()
-                        .getAuthentication()
-                        .getName());
+        model.addAttribute("messages", messageRepo.findAll());;
         model.addAttribute("roles",
                 userRepo.findByUsername(
                         SecurityContextHolder

@@ -2,8 +2,10 @@ package com.bustme.shamek;
 
 import com.bustme.shamek.domain.Message;
 import com.bustme.shamek.repo.MessageRepo;
+import com.bustme.shamek.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,9 @@ public class MessageController {
     @Autowired
     MessageRepo messageRepo;
 
+    @Autowired
+    UserRepo userRepo;
+
     //TODO: add verify for tags
     static Set<String> parseTags(String tags){
         Set<String> result = new TreeSet<>(Arrays.asList(tags.split("#")));
@@ -30,7 +35,7 @@ public class MessageController {
     @PostMapping("/create")
     public String saveMessage(@ModelAttribute Message message, @RequestParam String tags) {
         message.setTag(parseTags(tags));
-
+        message.setUser(userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
         messageRepo.save(message);
         return "redirect:/";
     }

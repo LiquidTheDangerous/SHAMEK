@@ -21,7 +21,7 @@
 
 <div>Our band posts:</div>
 <div th:each="message : ${messages}">
-    <div th:text="${userName}"></div>
+    <div th:text="${message.getUser().getUsername()}"></div>
     <div th:text="${message.getTitle()}"></div>
     <div th:text="${message.getText()}"></div>
     <form th:if="${roles.contains(adminRole)}" th:action="@{message/edit/{messageId}(messageId=${message.getId()})}" method="get">
