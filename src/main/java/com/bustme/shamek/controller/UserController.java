@@ -1,4 +1,4 @@
-package com.bustme.shamek;
+package com.bustme.shamek.controller;
 
 import com.bustme.shamek.domain.Role;
 import com.bustme.shamek.domain.User;

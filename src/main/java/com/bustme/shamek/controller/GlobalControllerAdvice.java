@@ -1,4 +1,4 @@
-package com.bustme.shamek;
+package com.bustme.shamek.controller;
 
 
 import com.bustme.shamek.domain.Role;
@@ -28,10 +28,14 @@ public class GlobalControllerAdvice {
 
     @ModelAttribute("CurrentUserRoles")
     public Set<Role> currentUserRoles(){
-        String currentUser = currentUser();
-        if(currentUser.equals("anonymousUser")){
+        String currentUsr = currentUser();
+        if(currentUsr == null){
             return null;
         }
+        if(currentUsr.equals("anonymousUser")){
+            return null;
+        }
+
 
         return new HashSet<Role>(userRepo.findByUsername(currentUser()).getRoles());
     }
