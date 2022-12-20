@@ -4,38 +4,86 @@
 <head>
     <title>Getting Started: Handling Form Submission</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" th:href="@{/css/button_user_edit_anim.css}">
 </head>
 
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Sign Out"/>
-</form>
-
-<form th:action="@{/message/findByTags}" method="post">
-    <label for="search_by_tag">Search by tag</label><input th:name="tags" type="text" id="search_by_tag">
-    <button type="submit">Search</button>
-</form>
-
-<form th:action="@{/message/create}" method="get">
-    <input type="submit" value="Write message"/>
-</form>
-
-<div>Our band posts:</div>
-<div th:each="message : ${messages}">
-    <div th:text="${message.getUser().getUsername()}"></div>
-    <div th:text="${message.getTitle()}"></div>
-    <div th:text="${message.getText()}"></div>
-    <form th:if="${CurrentUserRoles.contains(AdminRole) || message.isAuthor(CurrentUser)}" th:action="@{message/edit/{messageId}(messageId=${message.getId()})}" method="get">
-        <input type="submit" value="Edit"/>
-    </form>
-    <form th:if="${CurrentUserRoles.contains(AdminRole) || message.isAuthor(CurrentUser)}" th:action="@{message/delete/{messageId}(messageId=${message.getId()})}" method="post">
-        <input type="submit" value="Delete">
-    </form>
-<!--    <br th:text="${CurrentUser}">-->
-    <br>
+<div class="header">
+  <h1 class="header_logo">S H A M E K</h1>
+  <lu>
+      <li class="SingOut">
+         <form th:action="@{/logout}" method="post">
+            <button class="glow-on-hover" style="width: 95px; font-size:16px;" type="submit">Sign Out</button>
+        </form>
+      </li>
+      <li class="SingOut" style="right: 150px;">
+          <form th:action="@{/message/create}" method="get">
+            <button class="glow-on-hover" style="font-size:16px;" type="submit">Write message</button>
+        </form>
+      </li>
+      <li class="SearchTag">
+       <div>
+           <form th:action="@{/message/findByTags}" method="post">
+                <label style="font-size: 15px;" for="search_by_tag"></label>
+                <input placeholder="#TAG" style="background-color: transparent; color:aliceblue; border: 1px solid aliceblue; text-align: center; width: 100px; height: 40px; font-size:20px;" th:name="tags" type="text" id="search_by_tag">
+                <button class="glow-on-hover" style="width: 75px; top: -2px; font-size:16px;" type="submit">Search</button>
+            </form>
+       </div>
+      </li>
+      <li class="SearchTag" style="left: 250px;">
+         <a href="/users">
+             <button class="glow-on-hover" style="width: 100px; top: -2px; font-size:16px;">
+              My posts
+          </button>
+         </a>    
+      </li>
+      <li class="SearchTag" style="left: 390px;">
+         <a href="/users">
+             <button class="glow-on-hover" style="width: 75px; top: -2px; font-size:16px;">
+              Users
+          </button>
+         </a>    
+      </li>
+  </lu>
 </div>
-
-<!--<div th:text="${CurrentUser}"></div>-->
-<!--<div th:each="m"-->
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<body>
+   <div class="animate__backInLeft">
+        <div th:each="message : ${messages}" style="margin-left: 100%">
+            <div class="login-box">
+                <div th:text="${message.getUser().getUsername()}" class="message_text" style="text-align: right;"></div>
+                <div th:text="${message.getTitle()}" class="message_text"></div>
+                <br>
+                <div th:text="${message.getText()}" class="message_text" style="text-align: left;"></div>
+                <br>
+                <form th:if="${CurrentUserRoles.contains(AdminRole) || message.isAuthor(CurrentUser)}" th:action="@{message/edit/{messageId}(messageId=${message.getId()})}" method="get">
+                    <button type="submit">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Edit
+                    </button>
+                </form>
+                <form th:if="${CurrentUserRoles.contains(AdminRole) || message.isAuthor(CurrentUser)}" th:action="@{message/delete/{messageId}(messageId=${message.getId()})}" method="post">
+                    <button type="submit">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Delete
+                    </button>
+                </form>
+            </div>
+      </div>
+   </div>   
 </body>
 </html>
