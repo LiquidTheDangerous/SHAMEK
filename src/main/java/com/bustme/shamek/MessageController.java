@@ -9,9 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
-import java.util.Arrays;
-import java.util.Set;
-import java.util.TreeSet;
+//import javax.persistence.criteria.Predicate;
+import java.util.*;
+import java.util.function.Predicate;
 
 @Controller
 @RequestMapping("/message")
@@ -20,7 +20,7 @@ public class MessageController {
     MessageRepo messageRepo;
 
     //TODO: add verify for tags
-    private Set<String> parseTags(String tags){
+    static Set<String> parseTags(String tags){
         Set<String> result = new TreeSet<>(Arrays.asList(tags.split("#")));
         result.remove(" ");
         result.remove("");
@@ -63,5 +63,19 @@ public class MessageController {
     public String getMessageForm(Model model) {
         model.addAttribute("message", new Message());
         return "createMessage";
+    }
+    @PostMapping("/findByTags")
+    public String findMessages(@RequestParam("tags") String tags, Model model){
+        Set<String> res = parseTags(tags);
+        List<Message> messages = messageRepo.findAll().stream().filter(new Predicate<Message>() {
+            @Override
+            public boolean test(Message message) {
+                Set<String> intersection = new HashSet<String>(message.getTag());
+                intersection.retainAll(res);
+                return intersection.size() != 0;
+            }
+        }).toList();
+        model.addAttribute("messages",messages);
+        return "findMessages";
     }
 }

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="/">Home</a>
+
+<div>Our band posts:</div>
+<div th:each="message : ${messages}">
+<!--    <div th:text="${userName}"></div>-->
+    <div th:text="${message.getTitle()}"></div>
+    <div th:text="${message.getText()}"></div>
+<!--    <div th:if="${roles}"-->
+<!--    <form th:if="${roles.contains(adminRole)}" th:action="@{message/edit/{messageId}(messageId=${message.getId()})}" method="get">-->
+<!--        <input type="submit" value="Edit"/>-->
+<!--    </form>-->
+    <br>
+    <br>
+</div>
+
+</body>
+</html>

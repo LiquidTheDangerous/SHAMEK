@@ -10,6 +10,11 @@
     <input type="submit" value="Sign Out"/>
 </form>
 
+<form th:action="@{/message/findByTags}" method="post">
+    <label for="search_by_tag">Search by tag</label><input th:name="tags" type="text" id="search_by_tag">
+    <button type="submit">Search</button>
+</form>
+
 <form th:action="@{/message/create}" method="get">
     <input type="submit" value="Write message"/>
 </form>
