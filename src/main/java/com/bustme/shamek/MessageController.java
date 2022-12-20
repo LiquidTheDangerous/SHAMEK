@@ -126,4 +126,11 @@ public class MessageController {
         model.addAttribute("messages",messages);
         return "findMessages";
     }
+
+    @GetMapping("/findByUserName/{UserName}")
+    public String findMessagesByUserName(@PathVariable("UserName") String UserName, Model model){
+        model.addAttribute("messages",messageRepo.findMessagesByUserUsername(UserName));
+        return "findMessages";
+    }
+
 }

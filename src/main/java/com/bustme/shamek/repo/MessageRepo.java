@@ -11,5 +11,7 @@ public interface MessageRepo extends JpaRepository<Message,Long> {
     Set<Message> findMessagesByTag(String tag);
     Message findMessageById(Integer id);
 
+    Set<Message> findMessagesByUserUsername(String UserName);
+
     void removeById(Integer id);
 }

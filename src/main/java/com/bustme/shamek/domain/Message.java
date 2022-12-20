@@ -23,6 +23,14 @@ public class Message implements Cloneable{
     @ManyToOne
     private User user;
 
+    public boolean isAuthor(User user){
+      return this.user.getId().equals(user.getId());
+    }
+
+    public boolean isAuthor(String userName){
+      return this.user.getUsername().equals(userName);
+    }
+
     public User getUser() {
         return user;
     }
@@ -64,7 +72,7 @@ public class Message implements Cloneable{
     }
 
     public String getTags() {
-        StringBuilder result = new StringBuilder();
+        StringBuilder result = new StringBuilder(this.tag.size()*2);
         for(String t: tag) {
             result.append("#");
             result.append(t);
