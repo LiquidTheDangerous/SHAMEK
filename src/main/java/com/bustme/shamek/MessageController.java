@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.transaction.Transactional;
 //import javax.persistence.criteria.Predicate;
 import java.util.*;
 import java.util.function.Predicate;
@@ -18,6 +19,7 @@ import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping("/message")
+@PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
 public class MessageController {
     @Autowired
     MessageRepo messageRepo;
@@ -33,6 +35,7 @@ public class MessageController {
         return result;
     }
 
+
     @PostMapping("/create")
     public String saveMessage(@ModelAttribute Message message, @RequestParam String tags) {
         String regex = "(?:\\s*#\\s*\\w*\\s*)+";
@@ -46,7 +49,21 @@ public class MessageController {
         return "redirect:/";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+
+    @PostMapping("/delete/{messageId}")
+    @Transactional
+    public String deleteMessage(@PathVariable Integer messageId) {
+        if (!messageRepo
+                .findMessageById(messageId)
+                .getUser()
+                .getUsername()
+                .equals(SecurityContextHolder.getContext().getAuthentication().getName())){
+            return "error";
+        }
+        messageRepo.removeById(messageId);
+        return "redirect:/";
+    }
+
     @GetMapping("/edit/{messageId}")
     public String getMessageEditForm(Model model, @PathVariable Integer messageId) {
         Message message = messageRepo.findMessageById(messageId);
@@ -55,9 +72,16 @@ public class MessageController {
         return "editMessage";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/edit/{messageId}")
     public String saveEditedMessage(@ModelAttribute Message  message, @RequestParam String tags, @PathVariable Integer messageId, Model model) {
+        if (!messageRepo
+                .findMessageById(messageId)
+                .getUser()
+                .getUsername()
+                .equals(SecurityContextHolder.getContext().getAuthentication().getName())){
+            return "error";
+        }
+
         message.setTag(parseTags(tags));
         Message editedMessage = messageRepo.findMessageById(messageId);
         if (editedMessage != null) {
