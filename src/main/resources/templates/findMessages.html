@@ -3,22 +3,89 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Find messages</title>
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" th:href="@{/css/button_user_edit_anim.css}">
 </head>
-<body>
-<a href="/">Home</a>
-
-<!--<div>Our band posts:</div>-->
-<div th:each="message : ${messages}">
-    <div th:text="${message.getUser().getUsername()}"></div>
-    <div th:text="${message.getTitle()}"></div>
-    <div th:text="${message.getText()}"></div>
-    <form th:if="${CurrentUserRoles.contains(AdminRole)}" th:action="@{edit/{messageId}(messageId=${message.getId()})}" method="get">
-        <input type="submit" value="Edit"/>
-    </form>
-<!--    <br th:text="${CurrentUser}">-->
-    <br>
+<div class="header">
+  <h1 class="header_logo">S H A M E K</h1>
+  <lu>
+      <li class="SingOut">
+         <form th:action="@{/logout}" method="post">
+            <button class="glow-on-hover" style="width: 95px; font-size:16px;" type="submit">Sign Out</button>
+        </form>
+      </li>
+      <li class="SingOut" style="right: 150px;">
+          <form th:action="@{/message/create}" method="get">
+            <button class="glow-on-hover" style="font-size:16px;" type="submit">Write message</button>
+        </form>
+      </li>
+      <li class="SearchTag">
+       <div>
+           <a href="/">
+                <button class="glow-on-hover" style="width: 75px; top: -2px; font-size:16px;" type="submit">Home</button>
+            </a>
+       </div>
+      </li>
+      <li class="SearchTag" style="left: 140px;">
+         <a href="/users">
+             <button class="glow-on-hover" style="width: 100px; top: -2px; font-size:16px;">
+              My posts
+          </button>
+         </a>    
+      </li>
+      <li class="SearchTag" style="left: 390px;">
+         <a href="/users">
+             <button class="glow-on-hover" style="width: 75px; top: -2px; font-size:16px;">
+              Users
+          </button>
+         </a>    
+      </li>
+  </lu>
 </div>
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<body>
+   <div class="animate__backInLeft">
+        <div th:each="message : ${messages}" style="margin-left: 100%">
+            <div class="login-box">
+                <div th:text="${message.getUser().getUsername()}" class="message_text" style="text-align: right;"></div>
+                <div th:text="${message.getTitle()}" class="message_text"></div>
+                <br>
+                <div th:text="${message.getText()}" class="message_text" style="text-align: left;"></div>
+                <br>
+                <form th:if="${CurrentUserRoles.contains(AdminRole) || message.isAuthor(CurrentUser)}" th:action="@{message/edit/{messageId}(messageId=${message.getId()})}" method="get">
+                    <button type="submit">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Edit
+                    </button>
+                </form>
+                <form th:if="${CurrentUserRoles.contains(AdminRole) || message.isAuthor(CurrentUser)}" th:action="@{message/delete/{messageId}(messageId=${message.getId()})}" method="post">
+                    <button type="submit">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Delete
+                    </button>
+                </form>
+            </div>
+      </div>
+   </div>   
 </body>
+<br>
+<br>
+<br>
+<br>
+<br>
 </html>
