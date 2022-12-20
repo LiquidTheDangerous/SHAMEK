@@ -79,6 +79,18 @@
                         Delete
                     </button>
                 </form>
+
+                <form th:if="${CurrentUserRoles.contains(AdminRole) && message.getApproved().equals(false)}"  th:action="@{approve/{messageId}(messageId=${message.getId()})}" method="post">
+                    <button type="submit">
+<!--                        <input type="hidden" th:name="messageId" th:value="${message.getId()}">-->
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Approve
+                    </button>
+                </form>
+
             </div>
       </div>
    </div>   

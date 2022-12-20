@@ -44,6 +44,7 @@ public class MessageController {
         if (!pattern.matcher(tags).matches()){
             return "createMessage";
         }
+        message.setApproved(false);
         message.setTag(parseTags(tags));
         message.setUser(userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
         messageRepo.save(message);
@@ -118,6 +119,9 @@ public class MessageController {
         List<Message> messages = messageRepo.findAll().stream().filter(new Predicate<Message>() {
             @Override
             public boolean test(Message message) {
+                if (message.getApproved().equals(false)){
+                    return false;
+                }
                 Set<String> intersection = new HashSet<String>(message.getTag());
                 intersection.retainAll(res);
                 return intersection.size() != 0;
@@ -131,6 +135,28 @@ public class MessageController {
     public String findMessagesByUserName(@PathVariable("UserName") String UserName, Model model){
         model.addAttribute("messages",messageRepo.findMessagesByUserUsername(UserName));
         return "findMessages";
+    }
+
+    @GetMapping("/unapproved")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public String getAllUnapprovedMessages(Model model){
+        Set<Message> messages = messageRepo.findMessagesByApproved(false);
+        model.addAttribute("messages",messages);
+        return "findMessages";
+    }
+
+    @PostMapping("/approve/{messageId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @Transactional
+    public String approveMessage(@PathVariable("messageId") Integer messageId, Model model){
+        Message message = messageRepo.findMessageById(messageId);
+        message.setApproved(true);
+        Set<Message> messages = messageRepo.findMessagesByApproved(false);
+//        if (messages == null){
+//
+//        }
+        model.addAttribute("messages",messages);
+        return "redirect:/message/unapproved";
     }
 
 }

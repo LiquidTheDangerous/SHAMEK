@@ -27,7 +27,7 @@ public class HomeController {
 
     @GetMapping()
     public String home(Model model) {
-        model.addAttribute("messages", messageRepo.findAll());
+        model.addAttribute("messages", messageRepo.findMessagesByApproved(true));
         return "home";
     }
 }

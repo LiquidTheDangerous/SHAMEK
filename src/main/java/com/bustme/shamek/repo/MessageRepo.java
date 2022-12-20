@@ -8,10 +8,12 @@ import org.springframework.data.repository.query.Param;
 import java.util.Set;
 
 public interface MessageRepo extends JpaRepository<Message,Long> {
-    Set<Message> findMessagesByTag(String tag);
+//    Set<Message> findMessagesByTag(String tag);
     Message findMessageById(Integer id);
 
     Set<Message> findMessagesByUserUsername(String UserName);
+
+    Set<Message> findMessagesByApproved(Boolean approved);
 
     void removeById(Integer id);
 }

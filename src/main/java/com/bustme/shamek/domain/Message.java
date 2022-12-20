@@ -23,6 +23,15 @@ public class Message implements Cloneable{
     @ManyToOne
     private User user;
 
+    private Boolean approved;
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
+    }
+
     public boolean isAuthor(User user){
       return this.user.getId().equals(user.getId());
     }
