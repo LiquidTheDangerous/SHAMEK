@@ -24,12 +24,14 @@
     <div th:text="${message.getUser().getUsername()}"></div>
     <div th:text="${message.getTitle()}"></div>
     <div th:text="${message.getText()}"></div>
-    <form th:if="${roles.contains(adminRole)}" th:action="@{message/edit/{messageId}(messageId=${message.getId()})}" method="get">
+    <form th:if="${CurrentUserRoles.contains(AdminRole)}" th:action="@{message/edit/{messageId}(messageId=${message.getId()})}" method="get">
         <input type="submit" value="Edit"/>
     </form>
-    <br>
+<!--    <br th:text="${CurrentUser}">-->
     <br>
 </div>
+
+<!--<div th:text="${CurrentUser}"></div>-->
 <!--<div th:each="m"-->
 
 </body>
