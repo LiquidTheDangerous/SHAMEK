@@ -14,6 +14,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 //import javax.persistence.criteria.Predicate;
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping("/message")
@@ -34,6 +35,11 @@ public class MessageController {
 
     @PostMapping("/create")
     public String saveMessage(@ModelAttribute Message message, @RequestParam String tags) {
+        String regex = "(?:\\s*#\\s*\\w*\\s*)+";
+        Pattern pattern = Pattern.compile(regex);
+        if (!pattern.matcher(tags).matches()){
+            return "createMessage";
+        }
         message.setTag(parseTags(tags));
         message.setUser(userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
         messageRepo.save(message);
@@ -51,13 +57,21 @@ public class MessageController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/edit/{messageId}")
-    public String saveEditedMessage(@ModelAttribute Message  message, @RequestParam String tags, @PathVariable Integer messageId) {
+    public String saveEditedMessage(@ModelAttribute Message  message, @RequestParam String tags, @PathVariable Integer messageId, Model model) {
         message.setTag(parseTags(tags));
         Message editedMessage = messageRepo.findMessageById(messageId);
         if (editedMessage != null) {
             editedMessage.setTag(message.getTag());
             editedMessage.setTitle(message.getTitle());
             editedMessage.setText(message.getText());
+            String regex = "(?:\\s*#\\s*\\w*\\s*)+";
+            Pattern pattern = Pattern.compile(regex);
+            if (!pattern.matcher(tags).matches()){
+                model.addAttribute("message", editedMessage);
+                return "editMessage";
+            }
+
+
             messageRepo.save(editedMessage);
         }
         return "redirect:/";
