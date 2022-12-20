@@ -1,6 +1,7 @@
 package com.bustme.shamek;
 
 import com.bustme.shamek.domain.Message;
+import com.bustme.shamek.domain.Role;
 import com.bustme.shamek.repo.MessageRepo;
 import com.bustme.shamek.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,11 +54,12 @@ public class MessageController {
     @PostMapping("/delete/{messageId}")
     @Transactional
     public String deleteMessage(@PathVariable Integer messageId) {
-        if (!messageRepo
+        if (!(messageRepo
                 .findMessageById(messageId)
                 .getUser()
                 .getUsername()
-                .equals(SecurityContextHolder.getContext().getAuthentication().getName())){
+                .equals(SecurityContextHolder.getContext().getAuthentication().getName()) ||
+                userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles().contains(Role.ADMIN))){
             return "error";
         }
         messageRepo.removeById(messageId);
@@ -72,13 +74,16 @@ public class MessageController {
         return "editMessage";
     }
 
+
+    //пользователь это автор поста или пользователь админ
     @PostMapping("/edit/{messageId}")
     public String saveEditedMessage(@ModelAttribute Message  message, @RequestParam String tags, @PathVariable Integer messageId, Model model) {
-        if (!messageRepo
+        if (!(messageRepo
                 .findMessageById(messageId)
                 .getUser()
                 .getUsername()
-                .equals(SecurityContextHolder.getContext().getAuthentication().getName())){
+                .equals(SecurityContextHolder.getContext().getAuthentication().getName()) ||
+                userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles().contains(Role.ADMIN))){
             return "error";
         }
 
